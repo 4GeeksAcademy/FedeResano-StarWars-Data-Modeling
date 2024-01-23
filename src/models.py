@@ -15,25 +15,23 @@ class User(Base):
     username = Column(String(20), nullable=False)
     password = Column(String(20), nullable=False)
     email = Column(String(40), nullable=False)
-    favorites = Column(String(200), ForeignKey("favorites.favorites_url"))
-
+    favorite_id = Column(Integer, ForeignKey("favorites.favorites_id"))
+    favorites = relationship("Favorites")
 
 class Favorites(Base):
     __tablename__ = "favorites"
 
     favorites_id = Column(Integer, primary_key=True)
-    favorites_url = Column(String(200), nullable=False)
-
 
 class Characters(Base):
     __tablename__ = "characters"
 
     character_id = Column(Integer, primary_key=True)
     character_name = Column(String(100), nullable=False)
-    homeworld = Column(String(40), ForeignKey("planets.name"))
-    film_appearences = Column(Integer, ForeignKey("film.film_id"))
+    homeworld = Column(Integer, ForeignKey("planets.planet_id"))
+    film_appearences = Column(Integer, ForeignKey("films.film_id"))
     used_vehicles = Column(Integer, ForeignKey("vehicles.vehicle_id"))
-
+    related_starships = Column(Integer, ForeignKey("starships.starship_id"))
 
 class Films(Base):
     __tablename__ = "films"
