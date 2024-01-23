@@ -15,12 +15,14 @@ class User(Base):
     username = Column(String(20), nullable=False)
     password = Column(String(20), nullable=False)
     email = Column(String(40), nullable=False)
-    favorites = Column(Integer, ForeignKey("favorites.favorites_id"))
+    favorites = Column(String(200), ForeignKey("favorites.favorites_url"))
+
 
 class Favorites(Base):
     __tablename__ = "favorites"
 
     favorites_id = Column(Integer, primary_key=True)
+    favorites_url = Column(String(200), nullable=False)
 
 
 class Characters(Base):
@@ -45,7 +47,7 @@ class Planets(Base):
     __tablename__ = "planets"
 
     planet_id = Column(Integer, primary_key=True)
-    planet_name = Column(String(40))   
+    planet_name = Column(String(40), nullable=False)   
 
 
 class Vehicles(Base):
